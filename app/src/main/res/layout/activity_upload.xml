@@ -1,28 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UploadActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <EditText
+        android:id="@+id/editTextMatricula"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_marginTop="60dp"
+        android:hint="Matricula" />
 
-        <EditText
-            android:id="@+id/editTextMatricula"
+    <Button
+        android:id="@+id/buttonTakePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tomar Foto"
+        android:layout_below="@id/editTextMatricula"
+        android:layout_marginTop="16dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonTakePhoto"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:id="@+id/photoContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Matrícula" />
+            android:orientation="vertical" />
 
-        <Button
-            android:id="@+id/buttonTakePhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tomar Foto"/>
+    </ScrollView>
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/buttonBackToHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nueva Matrícula"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="returnToMainActivity"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/buttonLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cerrar Sesión"
+        android:onClick="logout"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="end" />
+
+
+</RelativeLayout>

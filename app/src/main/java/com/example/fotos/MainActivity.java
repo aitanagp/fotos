@@ -1,16 +1,8 @@
 package com.example.fotos;
 
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,10 +17,12 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextIp;
     private Button buttonLogin;
 
+    private SharedPreferences sharedPreferences;
+    private static final String SHARED_PREFS_FILE = "com.example.fotos.PREFERENCES";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
         editTextUsuario = findViewById(R.id.usuario);
@@ -36,18 +30,38 @@ public class MainActivity extends AppCompatActivity {
         editTextIp = findViewById(R.id.ip);
         buttonLogin = findViewById(R.id.btn_login);
 
+        sharedPreferences = getSharedPreferences(SHARED_PREFS_FILE, Context.MODE_PRIVATE);
+
+        // Verificar si ya hay una sesión activa
+        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+        if (isLoggedIn) {
+            // Si está logueado, ir directamente a UploadActivity
+            startUploadActivity();
+        }else {
+            // No hay una sesión activa, mostrar el formulario de inicio de sesión
+            Intent intent = new Intent(this, MainActivity.class);
+        }
+
         buttonLogin.setOnClickListener(v -> {
             String usuario = editTextUsuario.getText().toString();
             String contrasena = editTextContrasena.getText().toString();
-            String ip = editTextIp.getText().toString();
 
-            if(usuario.equals("admin") && contrasena.equals("admin")) {
-                Intent intent = new Intent(MainActivity.this, UploadActivity.class);
-                startActivity(intent);
-                finish();
+            if (usuario.equals("ekon") && contrasena.equals(".CcsCcs")) {
+                // Guardar estado de inicio de sesión
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("isLoggedIn", true);
+                editor.apply();
+
+                startUploadActivity();
             } else {
                 Toast.makeText(MainActivity.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void startUploadActivity() {
+        Intent intent = new Intent(this, UploadActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
