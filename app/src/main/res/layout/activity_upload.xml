@@ -5,35 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".UploadActivity">
 
-    <EditText
-        android:id="@+id/editTextMatricula"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:hint="Matricula" />
-
-    <Button
-        android:id="@+id/buttonTakePhoto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tomar Foto"
-        android:layout_below="@id/editTextMatricula"
-        android:layout_marginTop="16dp" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buttonTakePhoto"
-        android:layout_marginTop="16dp">
-
-        <LinearLayout
-            android:id="@+id/photoContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-
-    </ScrollView>
-
+    <!-- Botón para agregar nueva matrícula -->
     <Button
         android:id="@+id/buttonBackToHome"
         android:layout_width="wrap_content"
@@ -43,18 +15,31 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:onClick="returnToMainActivity"/>
+        android:onClick="returnToMainActivity" />
 
-    <Button
-        android:id="@+id/buttonLogout"
-        android:layout_width="wrap_content"
+    <!-- ListView para mostrar las matrículas obtenidas de la API -->
+    <ListView
+        android:id="@+id/listViewMatriculas"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cerrar Sesión"
-        android:onClick="logout"
+        android:layout_below="@id/buttonBackToHome"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_gravity="end" />
+        android:layout_above="@id/scrollViewPhotos"
+        android:layout_marginBottom="16dp" />
 
+    <!-- ScrollView para contener fotos capturadas -->
+    <ScrollView
+        android:id="@+id/scrollViewPhotos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <!-- Contenedor lineal para las fotos -->
+        <LinearLayout
+            android:id="@+id/photoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 
 </RelativeLayout>
